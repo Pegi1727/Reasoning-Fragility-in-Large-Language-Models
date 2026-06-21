@@ -60,9 +60,9 @@ If you use this dataset or code in your research, please cite our paper:
 @article{merrikhi2026fragility,
   title={The Fragility of Reasoning in Large Language Models},
   author={Merrikhi, Pegah},
-  journal={[Insert Journal Name Here]},
+  journal={Preprint submitted to arXiv / Under Review}
   year={2026}
-}
+
 
 
 ## License
