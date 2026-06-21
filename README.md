@@ -54,19 +54,16 @@ All experiments were conducted using publicly available language models and stan
 
 The dataset and evaluation pipeline allow full reproduction of the results presented in the paper.
 
+```markdown
 ## Citation
 If you use this dataset or code in your research, please cite our paper:
 ```bibtex
 @article{merrikhi2026fragility,
   title={The Fragility of Reasoning in Large Language Models},
   author={Merrikhi, Pegah},
-  journal={Preprint submitted to arXiv / Under Review}
+  journal={Submitted for peer review},
   year={2026}
-
-
-
-## License
----
+}
 
 ## Figures & Visualizations
 
