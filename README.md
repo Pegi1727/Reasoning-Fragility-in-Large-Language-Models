@@ -64,7 +64,6 @@ If you use this dataset or code in your research, please cite our paper:
   year={2026}
 }
 
-
 If you use this work, please cite:
 
 [Paper citation will be added after publication]
