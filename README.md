@@ -1,3 +1,14 @@
+# Reasoning Fragility in Large Language Models
+
+<p align="center">
+  <img src="figures/graphical_abstract.png" alt="Graphical Abstract" width="100%">
+</p>
+
+---
+
+## Overview
+Large language models can produce complex multi-step reasoning chains. However, when reasoning outputs are recursively reused as inputs...
+
 # Reasoning-Fragility-in-Large-Language-Models
 Code, dataset, and analysis for studying reasoning stability in large language models. This repository introduces the Reasoning Persistence Error (RPE) metric and provides experiments, bootstrap and Bayesian analyses, and sample reasoning trajectories for evaluating how reasoning chains degrade across iterative generations.
 # Reasoning Fragility in Large Language Models
