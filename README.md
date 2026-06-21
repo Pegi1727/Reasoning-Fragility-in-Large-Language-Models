@@ -50,5 +50,26 @@ If you use this work, please cite:
 [Paper citation will be added after publication]
 
 ## License
+---
+
+## Figures & Visualizations
+
+The following figures summarize the key findings of the study, covering both the empirical fragility analysis (Chapter 4) and the theoretical discussion (Chapter 5).
+
+### Chapter 4: The Fragility Landscape
+- **Figure 4.1**: The Fragility Landscape
+- **Figure 4.2**: Temporal Decay of Reasoning (RPE)
+- **Figure 4.3**: Bootstrap Confidence Intervals
+- **Figure 4.4**: Prior, Likelihood, and Posterior Distributions
+- **Figure 4.5**: Prior-Posterior Shift Analysis
+- **Figure 4.6**: Bayesian Superiority Heatmap
+- **Figure 4.7**: Posterior Difference Bootstrap
+- **Figure 4.8**: Annotated Fragility Heatmap
+
+### Chapter 5: Discussion
+- **Figure 5.1**: Phase Diagram of Reasoning Stability
+- **Figure 5.2**: Mechanism of Recursive Semantic Drift
+- **Figure 5.3**: Trade-off Between Model Scale and Reasoning Complexity
+
 
 MIT License
