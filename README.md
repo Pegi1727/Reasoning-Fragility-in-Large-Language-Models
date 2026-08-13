@@ -61,11 +61,6 @@ The recursive evaluation protocol comprises five components:
 
 *Posterior densities of the fragility coefficient k across model scales.*
 
-![Stability Horizon](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/stability_horizon_n0%204.4.png)
-
-*Stability horizon n₀ across model scales and task complexity.*
-
-
 ---
 Dr. Pegah Merrikhi — Independent Researcher, PhD in Applied Linguistics
 
