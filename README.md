@@ -65,9 +65,6 @@ The recursive evaluation protocol comprises five components:
 
 *Stability horizon n₀ across model scales and task complexity.*
 
-![Benchmark Difficulty Heatmap](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/benchmark_difficulty_heatmap.png)
-
-*Task difficulty heatmap across benchmarks.*
 
 ---
 Dr. Pegah Merrikhi — Independent Researcher, PhD in Applied Linguistics
