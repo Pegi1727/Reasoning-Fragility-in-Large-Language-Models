@@ -35,13 +35,6 @@ Large Language Models (LLMs) demonstrate significant reasoning capabilities, yet
 
 ---
 
-## Key Figures
-
-![Reasoning Depth Fragility Curve](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/reasoning_depth_fragility_curve.png)
-
-![Bayesian Posterior Density](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/bayesian_posterior_density_plot.png)
-
-
 ## ⚙️ Methodology
 
 The recursive evaluation protocol comprises five components:
