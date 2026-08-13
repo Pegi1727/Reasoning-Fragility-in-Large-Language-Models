@@ -79,6 +79,6 @@ The recursive evaluation protocol comprises five components:
 ---
 Dr. Pegah Merrikhi — Independent Researcher, PhD in Applied Linguistics
 
-📧 [email] · 🔗 [ORCID / Scholar / LinkedIn]
+📧 [email] · 🔗 [ORCID / Scholar / LinkedIn
 
 ![Benchmark Difficulty Heatmap](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/benchmark_difficulty_heatmap.png)
