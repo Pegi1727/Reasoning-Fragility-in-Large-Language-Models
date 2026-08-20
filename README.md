@@ -1,35 +1,76 @@
-# Reasoning Predictive Equity (RPE) Implementation
-import numpy as np
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
+# Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models
 
-def calculate_rpe(gen_0, gen_g, use_sbert=False):
-    """
-    Computes RPE. If use_sbert is True, it tries to load SentenceTransformer.
-    Otherwise, it falls back to TF-IDF Cosine Similarity for local validation.
-    """
-    if use_sbert:
-        try:
-            from sentence_transformers import SentenceTransformer
-            model = SentenceTransformer('all-MiniLM-L6-v2')
-            embs = model.encode([gen_0, gen_g])
-            return cosine_similarity([embs[0]], [embs[1]])[0][0]
-        except ImportError:
-            print("Sentence-Transformers not found. Falling back to TF-IDF.")
-    
-    # Fallback: TF-IDF Semantic Alignment
-    vectorizer = TfidfVectorizer().fit_transform([gen_0, gen_g])
-    vectors = vectorizer.toarray()
-    return cosine_similarity([vectors[0]], [vectors[1]])[0][0]
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20785071.svg)](https://doi.org/10.5281/zenodo.20785071)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 
-# --- Validation with Empirical Data ---
-# Loading real RPE values from the project CSV to check scale
-df_rpe = pd.read_csv('[/mnt/data/rpe_vs_generation.csv'](https://gapgpt.app/api/v1/code_interpreter/100563522/9ffda0cf-4648-42be-8604-e840b9d22b85/.eJwNy0sOwiAQANC7zMZNMTgOhPYyEz6DJRraAHZjevf69u8H3y6NS4LlobWxT4M4QVz94LG9pcICc87J65gVWXKKMIhyVpMSRzrMCTE4AxPk8hHe_Vj_pe3CR-eXVGl-lK3eYz9ucF4UDyIM:1wwy97:C4xTs8bodfwcSlgh4-yg6A-PYQV1z8m0ihes_KMhwQw/rpe_vs_generation.csv%27))
-print(f"Empirical RPE Range (Llama-70B): {df_rpe['llama_70b'].min():.2f} to {df_rpe['llama_70b'].max():.2f}")
+---
 
-# Example Test Case
-gen_0 = "The mathematical proof relies on the law of large numbers."
-gen_5 = "Numbers are large in mathematics and proofs are important." # Semantic drift
-print(f"Calculated RPE (Gen 0 vs 5): {calculate_rpe(gen_0, gen_5):.4f}")
-citation  DOI: 10.5281/zenodo.20785071
+## Figure Gallery
+
+<table>
+  <tr>
+    <td align="center"><b>Graphical Abstract</b><br><img src="figures/graphic%20abstractttpng.png" width="300"></td>
+    <td align="center"><b>Figure 1</b><br><img src="figures/1.png" width="300"></td>
+    <td align="center"><b>Figure 2</b><br><img src="figures/2.png" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Figure 3</b><br><img src="figures/3.png" width="300"></td>
+    <td align="center"><b>Figure 4</b><br><img src="figures/collapse_regime%204.1.png" width="300"></td>
+    <td align="center"><b>Figure 5</b><br><img src="figures/reasoning_depth_fragility_curve_v2%204.3.png" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Figure 6</b><br><img src="figures/stability_horizon_n0%204.4.png" width="300"></td>
+    <td align="center"><b>Figure 7</b><br><img src="figures/bayesian_posterior_density_plot_v2%204.4.png" width="300"></td>
+    <td align="center"><b>Figure 8</b><br><img src="figures/benchmark_difficulty_heatmap.png" width="300"></td>
+  </tr>
+</table>
+
+---
+
+## Overview
+
+This repository contains the empirical datasets, analysis notebooks, and figure-generation code for the manuscript:
+
+**Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models**  
+**Manuscript ID:** NLP-2026-0255
+
+The project investigates how reasoning quality degrades across successive generations of large language models using semantic similarity, fragility coefficients, Bayesian stability horizons, and related analyses.
+
+---
+
+## Repository Contents
+
+- `data/` — empirical datasets and derived tables
+- `figures/` — publication-quality figures
+- `notebooks/` — reproducible analysis notebooks
+- `appendices/` — supplementary materials
+- `README.md` — project overview and documentation
+
+---
+
+## Key Outputs
+
+- Recursive reasoning performance evaluation
+- Fragility coefficient estimation
+- Bayesian stability horizon analysis
+- Publication-ready figure generation
+- Reproducible notebook workflow
+
+---
+
+## DOI and Citation
+
+If you use this repository, please cite it as:
+
+**DOI:** https://doi.org/10.5281/zenodo.20785071
+
+### BibTeX
+```bibtex
+@software{merrikhi_2026_fragility,
+  author  = {Merrikhi, Pegah},
+  title   = {Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models},
+  year    = {2026},
+  doi     = {10.5281/zenodo.20785071},
+  url     = {https://doi.org/10.5281/zenodo.20785071}
+}
