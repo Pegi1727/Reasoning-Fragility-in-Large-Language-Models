@@ -1,69 +1,74 @@
+# =====================================================================
+# Reasoning Predictive Equity (RPE) Implementation & Validation
+# ---------------------------------------------------------------------
+# Repository: https://github.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models
+# Citation DOI: 10.5281/zenodo.20785071
+# =====================================================================
 
-# Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models
+import os
+import numpy as np
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-**Author:** Dr. Pegah Merrikhi · Independent Researcher · PhD in Applied Linguistics
+def calculate_rpe(gen_0: str, gen_g: str, use_sbert: bool = False) -> float:
+    """
+    Computes the Reasoning Predictive Equity (RPE) metric.
+    
+    Quantifies semantic fidelity between initial (gen_0) and recursive (gen_g)
+    generations using SBERT embeddings (preferred) or a deterministic TF-IDF fallback.
+    
+    Parameters:
+        gen_0 (str): Baseline/initial step reasoning trace.
+        gen_g (str): Step-g recursive generation reasoning trace.
+        use_sbert (bool): Flag to utilize SentenceTransformer ('all-MiniLM-L6-v2').
+        
+    Returns:
+        float: Cosine similarity score bounded in [-1.0, 1.0].
+    """
+    if use_sbert:
+        try:
+            from sentence_transformers import SentenceTransformer
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            embs = model.encode([gen_0, gen_g])
+            return float(cosine_similarity([embs[0]], [embs[1]])[0][0])
+        except (ImportError, Exception) as e:
+            print(f"[Warning] SBERT unavailable ({e}). Falling back to TF-IDF cosine similarity.")
+    
+    # Deterministic local fallback: TF-IDF vectorization
+    vectorizer = TfidfVectorizer()
+    vectors = vectorizer.fit_transform([gen_0, gen_g]).toarray()
+    return float(cosine_similarity([vectors[0]], [vectors[1]])[0][0])
 
+# =====================================================================
+# Empirical Data Validation
+# =====================================================================
+data_path = '[/mnt/data/rpe_vs_generation.csv'](https://gapgpt.app/api/v1/code_interpreter/100563522/9ffda0cf-4648-42be-8604-e840b9d22b85/.eJwNy0sOwiAQANC7zMZNMTgOhPYyEz6DJRraAHZjevf69u8H3y6NS4LlobWxT4M4QVz94LG9pcICc87J65gVWXKKMIhyVpMSRzrMCTE4AxPk8hHe_Vj_pe3CR-eXVGl-lK3eYz9ucF4UDyIM:1wwyHQ:4w9k9GlmV5rPB9HD1NTQ4ekY3vjrycKaKyNJPbDAdbA/rpe_vs_generation.csv%27)
+
+if os.path.exists(data_path):
+    df_rpe = pd.read_csv(data_path)
+    print(f"Empirical Data Loaded successfully from: {data_path}")
+    print(f"Empirical RPE Range (Llama-70B): {df_rpe['llama_70b'].min():.4f} to {df_rpe['llama_70b'].max():.4f}")
+else:
+    print(f"[Notice] Empirical file '{data_path}' not found locally. Running in standalone mode.")
+
+# Test Case Demonstration
+gen_0 = "The mathematical proof relies on the law of large numbers."
+gen_1 = "The proof in mathematics depends strictly on the law of large numbers." # High fidelity
+gen_5 = "Numbers are large in mathematics and proofs are important."              # Semantic drift
+
+print("\n--- Validation Scores ---")
 ---
-
-## Graphical Abstract
-
-![Graphical Abstract](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/graphic%20abstractttpng.png)
-
-*Reasoning Predictive Equity (RPE) decays exponentially as recursive generation depth increases.*
-
+@software{merrikhi_2026_zenodo20785071,
+  author       = {Merrikhi, Pegah},
+  title        = {Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models: Code and Empirical Data},
+  year         = {2026},
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.20785071},
+  url          = {https://doi.org/10.5281/zenodo.20785071}
+}
 ---
-
-## Results Snapshot
-
-| Finding | Result |
-|---|---|
-| Fragility coefficient (`k`) | Larger models show lower `k`, indicating slower semantic degradation |
-| Stability horizon (`n₀`) | Larger models preserve coherent reasoning across more generations |
-| Task complexity penalty (`Δ`) | More complex tasks produce greater semantic drift |
-| Decay dynamics | RPE follows an exponential decline across recursive generations |
-| Statistical validation | Bayesian hierarchical modeling supports robust scaling differences |
-
----
-
-## Overview
-
-Large Language Models (LLMs) demonstrate remarkable reasoning capabilities, yet their reliability under recursive inference remains under-explored. This project introduces **Reasoning Predictive Equity (RPE)**, a quantitative metric that tracks semantic fidelity across successive generations of model-generated reasoning and models degradation as a structured dynamical process.
-
-## Abstract
-
-Large Language Models (LLMs) demonstrate significant reasoning capabilities, yet their reliability under recursive inference remains under-explored. We introduce Reasoning Predictive Equity (RPE), a quantitative metric tracking semantic fidelity across successive generations. Using a recursive evaluation protocol, we demonstrate that reasoning degradation is a structured dynamical process characterized by exponential decay: `RPE(g) = RPE₀ · e^(−kg)`. We identify three regularities: (1) larger models exhibit lower fragility (`k`) and extended stability horizons; (2) task complexity systematically amplifies semantic drift, imposing a structural performance penalty (`Δ`); and (3) degradation follows predictable scaling laws, validated by Bayesian hierarchical modeling.
-
----
-
-## ⚙️ Methodology
-
-The recursive evaluation protocol comprises five components:
-
-1. **Benchmark-derived task construction** across complexity regimes
-2. **Comparative evaluation** of transformer autoregressive language models
-3. **Iterative self-conditioned reasoning generation**
-4. **Semantic trajectory alignment** using RPE
-5. **Statistical modeling** of fragility and collapse dynamics
-
----
-
-## 🧩 Key Figures
-
-![Reasoning Depth Fragility Curve](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/reasoning_depth_fragility_curve.png)
-
-*Exponential decay of RPE across generation depth.*
-
-![Collapse Regime](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/collapse%20regime%204.1.png)
-
-*Transition into the instability/collapse regime.*
-
-![Bayesian Posterior Density](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/bayesian_posterior_density_plot.png)
-
-*Posterior densities of the fragility coefficient k across model scales.*
-
----
-Dr. Pegah Merrikhi — Independent Researcher, PhD in Applied Linguistics
-
-📧 [email] · 🔗 [ORCID / Scholar / LinkedIn
-
-![Benchmark Difficulty Heatmap](https://raw.githubusercontent.com/Pegi1727/Reasoning-Fragility-in-Large-Language-Models/main/figures/benchmark_difficulty_heatmap.png)
+Merrikhi, P. (2026). Quantifying the Fragility of Reasoning in Successive Generations of Large Language Models (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.20785071
+print(f"RPE (Gen 0 vs 1 - High Fidelity): {calculate_rpe(gen_0, gen_1):.4f}")
+print(f"RPE (Gen 0 vs 5 - Semantic Drift): {calculate_rpe(gen_0, gen_5):.4f}")
